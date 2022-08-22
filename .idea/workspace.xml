@@ -1,11 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="86b77da6-0c31-4b86-b571-3995472d4dba" name="Default Changelist" comment="" />
+    <list default="true" id="86b77da6-0c31-4b86-b571-3995472d4dba" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/map-point1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/map-point2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/map-point3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/map-point4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/map-point5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/map-point6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/map-point7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/staticJson/dataJson.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/common.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/develop.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/docs.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/faq.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/header.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/introduction.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/css/overview.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/docs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/include.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/ace/ace.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/ace/ext-language_tools.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/ace/ext-searchbox.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/ace/mode-html.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/ace/worker-html.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/AdminLTE.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/AdminLTE.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/fonts.googleapis.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/_all-skins.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/_all-skins.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-black-light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-black-light.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-black.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-black.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-blue-light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-blue-light.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-blue.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-blue.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-green-light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-green-light.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-green.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-green.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-purple-light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-purple-light.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-purple.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-purple.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-red-light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-red-light.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-red.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-red.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-yellow-light.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-yellow-light.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-yellow.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/css/skins/skin-yellow.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/js/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/js/app.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/js/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/js/pages/dashboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/admin-lte/js/pages/dashboard2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/art-template/template-web.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap-select/bootstrap-select.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap-select/bootstrap-select.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/css/bootstrap-theme.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/css/bootstrap-theme.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/css/bootstrap-theme.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/css/bootstrap-theme.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/css/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/css/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/fonts/glyphicons-halflings-regular.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/fonts/glyphicons-halflings-regular.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/fonts/glyphicons-halflings-regular.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/bootstrap/js/npm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/css-loader/css-loader.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/echarts/4.0.4/echarts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/echarts/4.0.4/echarts.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/echarts/4.1.0/echarts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/echarts/4.1.0/echarts.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/echarts/4.3.0/echarts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/echarts/4.3.0/echarts.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/echarts/4.5.0/echarts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/echarts/4.5.0/echarts.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/echarts/echarts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/echarts/echarts.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/css/font-awesome.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/css/font-awesome.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/fonts/FontAwesome.otf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/fonts/fontawesome-webfont.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/fonts/fontawesome-webfont.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/fonts/fontawesome-webfont.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/fonts/fontawesome-webfont.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/fonts/fontawesome-webfont.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/animated.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/bordered-pulled.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/core.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/fixed-width.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/font-awesome.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/icons.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/larger.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/list.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/mixins.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/path.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/rotated-flipped.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/screen-reader.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/stacked.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/less/variables.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_animated.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_bordered-pulled.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_core.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_fixed-width.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_icons.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_larger.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_list.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_mixins.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_path.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_rotated-flipped.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_screen-reader.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_stacked.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/_variables.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/font-awesome/scss/font-awesome.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/g6/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/geohash/geohash.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/geostats/geostats.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/highlight/default.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/highlight/highlight.pack.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/i18next/i18next.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/jquery-i18next/jquery-i18next.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/jquery/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/lazyload/jquery.lazyload.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/lazyload/lazyload.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/swiper/swiper.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/libs/swiper/swiper.min.js" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2DZDV4wE3orzBK6UtbyAGJWCRg2" />
   <component name="ProjectViewState">
@@ -15,9 +159,15 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/img" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\工作文件\项目demo\superMapDemoToHTML\img" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -30,10 +180,26 @@
       <option name="presentableId" value="Default" />
       <updated>1660897733431</updated>
       <workItem from="1660897736059" duration="1261000" />
+      <workItem from="1661130635184" duration="20379000" />
+      <workItem from="1661165269832" duration="12458000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1661135134604">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1661135134604" />
+    <state x="363" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1661130668124">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="363" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1661130668124" />
+    <state x="359" y="97" width="647" height="534" key="find.popup" timestamp="1661149952295">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="359" y="97" width="647" height="534" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1661149952295" />
   </component>
 </project>

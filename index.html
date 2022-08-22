@@ -8,8 +8,12 @@
 		<title>xuwei Map</title>
 		<link href="./js/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 		<script type="text/javascript" src="./js/Build/Cesium/Cesium.js"></script>
+		<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 	</head>
 	<body>
+		<button id="clearLabel">清除节点</button>
+		<button id="addPoint">添加点位</button>
+		<button id="cameraBack">回归视角</button>
 		<div id="cesiumContainer"></div>
 	</body>
 	<script>
@@ -17,135 +21,213 @@
 	    let _mapPosition;
 	    let cesiumObj;
 	    let handler;
-	    function onload(Cesium) {
+	    let BaseData;
+
+	    /**视角回归*/
+		$('#cameraBack').click(()=>{
+			let mapPosition = {
+				jd: 119.50883,
+				wd: 34.3643,
+				height: 15000,
+				heading:0,
+				pitch: -40
+			};
+			viewer.camera.flyTo({
+				destination: cesiumObj.Cartesian3.fromDegrees(Number(mapPosition.jd), Number(mapPosition.wd), Number(mapPosition.height)), // 设置位置
+				orientation: {
+					heading: cesiumObj.Math.toRadians(Number(mapPosition.heading)), // 方向
+					pitch: cesiumObj.Math.toRadians(Number(mapPosition.pitch)),// 倾斜角度
+					roll: 0
+				}
+			});
+		})
+
+	    /**删除地图标注点位*/
+	   $('#clearLabel').click(()=>{
+		   let childernNode = viewer.cesiumWidget.container;
+		   if(childernNode.hasChildNodes()){
+		   	 let total = childernNode.childNodes.length;
+		   	 for (let i =1;i<total;i++){
+				 childernNode.lastChild.remove()
+			 }
+		   }
+	   });
+
+	   $('#addPoint').click(()=>{
+		 BaseData.dataPointList.forEach(item=>{
+			 item.centerPositionXYZ = cesiumObj.Cartesian3.fromDegrees(item.centerPosition[0], item.centerPosition[1], item.centerPosition[2])
+			 loadEntityIcon(item);
+		 })
+	   })
+
+	    /**初始化添加DOM*/
+		function addDynamicLabel(data){
+			let div = document.createElement("div");
+			div.id = data.id;
+			div.style.position = "absolute";
+			div.style.width = "200px";
+			div.style.height = "30px";
+			let HTMLTable = `
+				<div class="point">
+				  <div class="point-l"></div>
+				  <div class="point-icon">
+					<img src="img/point-icon.png">
+				  </div>
+				  <div class="point-arrow"></div>
+				  <div class="point-r">${data.title}</div>
+				</div>
+				<!--<div style="display: flex;width: 100%;">
+					<div class="leftIcon"></div>
+					<div class="testCss">
+						<span style="margin-left: 20px;padding-right: 10px">${data.title}</span>
+					</div>
+				</div>-->
+				`;
+			div.innerHTML = HTMLTable;
+			viewer.cesiumWidget.container.appendChild(div);
+			let gisPosition = data.position
+			//实时更新位置
+			viewer.scene.postRender.addEventListener(() => {
+				const canvasHeight = viewer.scene.canvas.height;
+				const windowPosition = new cesiumObj.Cartesian2();
+				cesiumObj.SceneTransforms.wgs84ToWindowCoordinates(
+						viewer.scene,
+						gisPosition,
+						windowPosition
+				);
+				div.style.bottom = (canvasHeight - windowPosition.y - 13) + "px";
+				const elWidth = div.offsetWidth;
+				div.style.left = (windowPosition.x - elWidth / 2 + 15) + "px";
+
+				//解决滚动不隐藏问题
+				const camerPosition = viewer.camera.position;
+				let height = viewer.scene.globe.ellipsoid.cartesianToCartographic(camerPosition).height;
+				height += viewer.scene.globe.ellipsoid.maximumRadius;
+				// console.log(camerPosition,val.position )
+				if((!(cesiumObj.Cartesian3.distance(camerPosition,gisPosition ) > height))&&viewer.camera.positionCartographic.height<50000000){
+					div.style.display = "block"
+				}else{
+					div.style.display = "none"
+				}
+			});
+		}
+
+		function onload(Cesium) {
 	        cesiumObj = Cesium;
 	        let mapPosition = {
-	            jd: 119.38883,
+	            jd: 119.50883,
 	            wd: 34.3643,
 	            height: 15000,
 	            heading:0,
 	            pitch: -40
 	        };
-	        let lonLats = [{"lon":119.352206,"lat":34.600817,"sort":0},{"lon":119.371689,"lat":34.611638,"sort":1},{"lon":119.371775,"lat":34.614901,"sort":2},{"lon":119.411685,"lat":34.637488,"sort":3},{"lon":119.415977,"lat":34.633537,"sort":4},{"lon":119.420096,"lat":34.636285,"sort":5},{"lon":119.425246,"lat":34.633194,"sort":6},{"lon":119.431168,"lat":34.626152,"sort":7},{"lon":119.441811,"lat":34.61198,"sort":8},{"lon":119.438636,"lat":34.597724,"sort":9},{"lon":119.441903,"lat":34.592357,"sort":10},{"lon":119.444904,"lat":34.588351,"sort":11},{"lon":119.448341,"lat":34.584979,"sort":12},{"lon":119.464823,"lat":34.571337,"sort":13},{"lon":119.470143,"lat":34.566534,"sort":14},{"lon":119.477513,"lat":34.560161,"sort":15},{"lon":119.484042,"lat":34.555092,"sort":16},{"lon":119.490566,"lat":34.549086,"sort":17},{"lon":119.494858,"lat":34.54325,"sort":18},{"lon":119.501896,"lat":34.534328,"sort":19},{"lon":119.507998,"lat":34.527632,"sort":20},{"lon":119.509629,"lat":34.51493,"sort":21},{"lon":119.519758,"lat":34.515359,"sort":22},{"lon":119.521315,"lat":34.501234,"sort":23},{"lon":119.520778,"lat":34.500847,"sort":24},{"lon":119.520348,"lat":34.500204,"sort":25},{"lon":119.517989,"lat":34.498487,"sort":26},{"lon":119.51668,"lat":34.497671,"sort":27},{"lon":119.51565,"lat":34.496942,"sort":28},{"lon":119.51417,"lat":34.496062,"sort":29},{"lon":119.512861,"lat":34.495525,"sort":30},{"lon":119.511252,"lat":34.495139,"sort":31},{"lon":119.509445,"lat":34.495035,"sort":32},{"lon":119.473392,"lat":34.489258,"sort":33},{"lon":119.405244,"lat":34.468647,"sort":34},{"lon":119.390131,"lat":34.469753,"sort":35},{"lon":119.386705,"lat":34.47861,"sort":36},{"lon":119.348253,"lat":34.487027,"sort":37},{"lon":119.348081,"lat":34.495271,"sort":38},{"lon":119.344133,"lat":34.503172,"sort":39},{"lon":119.338297,"lat":34.506092,"sort":40},{"lon":119.326109,"lat":34.508325,"sort":41},{"lon":119.322809,"lat":34.51027,"sort":42},{"lon":119.323925,"lat":34.517866,"sort":43},{"lon":119.323152,"lat":34.518896,"sort":44},{"lon":119.322078,"lat":34.514884,"sort":45},{"lon":119.321048,"lat":34.51059,"sort":46},{"lon":119.315555,"lat":34.512651,"sort":47},{"lon":119.306543,"lat":34.520208,"sort":48},{"lon":119.298303,"lat":34.525189,"sort":49},{"lon":119.290579,"lat":34.53309,"sort":50},{"lon":119.295385,"lat":34.555419,"sort":51},{"lon":119.305427,"lat":34.555333,"sort":52},{"lon":119.316242,"lat":34.561946,"sort":53},{"lon":119.319067,"lat":34.568086,"sort":54},{"lon":119.349029,"lat":34.600489,"sort":55},{"lon":119.352206,"lat":34.600817,"sort":0}]
-	        let parms = {
-	            positions:lonLats,
-	            color: 'red',
-	            speed: 1000,
-	            maxHeight: 1000,
-	            minHeight: 0
-	        };
-	        let pointParams = {
-	            base: {
-	                jd: 119.390150898,
-	                wd:  34.541823325,
-	                gd: 100,
-	                name: '徐圩站点',
-	                description: '站点描述',
-	                code: "123456789"
-	            },
-	            label:{
-	                text:'东辛农场'
-	            },
-	            image:{
-	                url:'./img/ico_AddMarker.png',
-	                width: 40,
-	                height: 40
-	            },
-	            property:{
-	                name: '机位1',
-	                type: '监控站点',
-	                action: function (txt) {
-	                    console.log("这是该图标名称信息：" + txt);
-	                }
-	            }
-	        };
-	
+
 	        loadMap('cesiumContainer',mapPosition,true,true);
-	
-	        addWall(parms);
-	
-	        addPolyon(parms);
-	
-	        loadEntityIcon(pointParams);
-	
+
 	        mouseEventsListen();
-	
-	        //初始化地图
-	        function loadMap(id, mapPosition, useArcGis, closeLight) {
-	            let viewConfig = {
-	                animation: false,    //左下角的动画仪表盘
-	                baseLayerPicker: false,  //右上角的图层选择按钮
-	                geocoder: false,  //搜索框
-	                homeButton: false,  //home首页按钮
-	                sceneModePicker: false, //场景模式切换按钮 2D 3D
-	                timeline: false,    //底部的时间轴
-	                navigationHelpButton: false,  //右上角的帮助按钮，
-	                fullscreenButton: false,   //右下角的全屏按钮
-	                requestRenderMode: false, // 启用requestRenderMode以减少Cesium渲染新帧的总时间（但会影响页面渲染，简单操作可以开启）
-	                navigation: false,  //指南针
-	                infoBox: false, //信息框
-	                selectionIndicator: false, //是否显示选取指示器组件
-	                vrButton: false, //VR模式
-	            };
-	            if (useArcGis) {
-	                viewConfig.imageryProvider = new Cesium.ArcGisMapServerImageryProvider({
-	                    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer',
-	                    baseLayerPicker: false
-	                });
-	            } else {
-	                // 创建CesiumTerrainProvider世界地图
-	                viewConfig.terrainProvider = Cesium.createWorldTerrain();
-	            }
-	
-	            //id是需要指定加入的组件id
-	            viewer = new Cesium.Viewer(id, viewConfig);
-	            //版权清理 去除cesium标志
-	            viewer.cesiumWidget.creditContainer.style.display = "none";
-	            // this.viewer.bottomContainer.style.display="none";
-	            if(closeLight) {
-	                viewer.scene.globe.enableLighting = false; //关闭光源
-	                viewer.shadows = false; //关闭阴影
-	            }
-	            setCameraPosition(mapPosition);
-	            // this.viewer.resize();
-	            viewer.zoomTo(viewer.entities);//把视角聚焦到实体
-	
-	            //天地图图层
-	            const vecLayer = new Cesium.WebMapTileServiceImageryProvider({
-	                url: `http://t1.tianditu.gov.cn/vec_w/wmts?tk=c4688538e42bc00add652adbb167399f`,
-	                format: 'tiles',
-	                layer: 'vec',
-	                style: 'default',
-	                tileMatrixSetID: 'w'
-	            })
-	
-	            // //徐圩超图图层
-	            // const superMapLayer = new Cesium.SuperMapImageryProvider({
-	            //     url:"http://218.92.31.102:8090/iserver/services/map-LianYunGangYingXiang0507/rest/maps/LYG_IMG"
-	            // });
-	
-	            //官方提供图层
-	            const superMapLayer1 = new Cesium.SuperMapImageryProvider({
-	                url:"http://www.supermapol.com/realspace/services/map-World/rest/maps/World_Google"
-	            });
-				
-				
-	        };
-	
-	        //设置相机位置方法
-	        function setCameraPosition(mapPosition){
-	            _mapPosition = mapPosition;
-	            viewer.camera.setView({
-	                destination: Cesium.Cartesian3.fromDegrees(Number(mapPosition.jd), Number(mapPosition.wd), Number(mapPosition.height)), // 设置位置
-	                orientation: {
-	                    heading: Cesium.Math.toRadians(Number(mapPosition.heading)), // 方向
-	                    pitch: Cesium.Math.toRadians(Number(mapPosition.pitch)),// 倾斜角度
-	                    roll: 0
-	                }
-	            });
-	        };
-	    }
-	
+
+			setCameraPosition(mapPosition);
+
+	    };
+
+		$('#cesiumContainer').ready(function() {
+			console.log('页面加载成功')
+			$.ajax({
+				type:"get", //使用get方式
+				url: "./web/staticJson/dataJson.json", //json文件相对于这个HTML的路径
+				dataType:"json",
+				async: false,
+				success:function(data) {
+					BaseData = data
+					console.log('这个就是json数据：',data)
+					BaseData.bigPositionData.forEach(item=>{
+						item.maxHeight = 1000;
+						item.minHeight = 0;
+						addWall(item);
+						addPolyon(item);
+					})
+				},
+				error:function() {
+					alert("请求失败");
+				}
+			});
+
+		})
+
+
+		/**初始化地图*/
+		function loadMap(id, mapPosition, useArcGis, closeLight) {
+			let viewConfig = {
+				animation: false,    //左下角的动画仪表盘
+				baseLayerPicker: false,  //右上角的图层选择按钮
+				geocoder: false,  //搜索框
+				homeButton: false,  //home首页按钮
+				sceneModePicker: false, //场景模式切换按钮 2D 3D
+				timeline: false,    //底部的时间轴
+				navigationHelpButton: false,  //右上角的帮助按钮，
+				fullscreenButton: false,   //右下角的全屏按钮
+				requestRenderMode: false, // 启用requestRenderMode以减少Cesium渲染新帧的总时间（但会影响页面渲染，简单操作可以开启）
+				navigation: false,  //指南针
+				infoBox: false, //信息框
+				selectionIndicator: false, //是否显示选取指示器组件
+				vrButton: false, //VR模式
+			};
+			if (useArcGis) {
+				viewConfig.imageryProvider = new cesiumObj.ArcGisMapServerImageryProvider({
+					url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer',
+					baseLayerPicker: false
+				});
+			} else {
+				// 创建CesiumTerrainProvider世界地图
+				viewConfig.terrainProvider = cesiumObj.createWorldTerrain();
+			}
+
+			//id是需要指定加入的组件id
+			viewer = new cesiumObj.Viewer(id, viewConfig);
+			//版权清理 去除cesium标志
+			viewer.cesiumWidget.creditContainer.style.display = "none";
+			// this.viewer.bottomContainer.style.display="none";
+			if(closeLight) {
+				viewer.scene.globe.enableLighting = false; //关闭光源
+				viewer.shadows = false; //关闭阴影
+			}
+			setCameraPosition(mapPosition);
+			// this.viewer.resize();
+			viewer.zoomTo(viewer.entities);//把视角聚焦到实体
+
+			//天地图图层
+			const vecLayer = new cesiumObj.WebMapTileServiceImageryProvider({
+				url: `http://t1.tianditu.gov.cn/vec_w/wmts?tk=c4688538e42bc00add652adbb167399f`,
+				format: 'tiles',
+				layer: 'vec',
+				style: 'default',
+				tileMatrixSetID: 'w'
+			})
+
+			// //徐圩超图图层
+			// const superMapLayer = new cesiumObj.SuperMapImageryProvider({
+			//     url:"http://218.92.31.102:8090/iserver/services/map-LianYunGangYingXiang0507/rest/maps/LYG_IMG"
+			// });
+
+			//官方提供图层
+			const superMapLayer1 = new cesiumObj.SuperMapImageryProvider({
+				url:"http://www.supermapol.com/realspace/services/map-World/rest/maps/World_Google"
+			});
+		};
+
+		/**设置相机位置方法*/
+		function setCameraPosition(mapPosition){
+			_mapPosition = mapPosition;
+			viewer.camera.setView({
+				destination: cesiumObj.Cartesian3.fromDegrees(Number(mapPosition.jd), Number(mapPosition.wd), Number(mapPosition.height)), // 设置位置
+				orientation: {
+					heading: cesiumObj.Math.toRadians(Number(mapPosition.heading)), // 方向
+					pitch: cesiumObj.Math.toRadians(Number(mapPosition.pitch)),// 倾斜角度
+					roll: 0
+				}
+			});
+		};
+
 	    /**
 	     * 加载围栏
 	     * @param param:{
@@ -159,14 +241,14 @@
 	    function addWall(param) {
 	        let alp = 1;
 	        let num = 0;
-	        let col = new cesiumObj.Color.fromCssColorString(param.color).withAlpha(1.0);
-	        var rgba = cesiumObj.Color.fromCssColorString('#04E5FB');
+	        // let col = new cesiumObj.Color.fromCssColorString(param.strokeColor).withAlpha(1.0);
+	        var rgba = cesiumObj.Color.fromCssColorString(param.strokeColor);
 	        let newPosition = [];
-	        param.positions.forEach(item=>{
-	            let positionItem = cesiumObj.Cartesian3.fromDegrees(item.lon,item.lat,10000);
+			param.organizationPoints.push(param.organizationPoints[0])
+	        param.organizationPoints.forEach(item=>{
+	            let positionItem = cesiumObj.Cartesian3.fromDegrees(item.x,item.y,10000);
 	            newPosition.push(positionItem);
 	        })
-	
 	        let wall = viewer.entities.add({
 	            wall: {
 	                positions: newPosition,
@@ -185,11 +267,11 @@
 	                    }),
 	                    transparent: true
 	                }),
-	                maximumHeights: new Array(param.positions.length).fill(param.maxHeight),
-	                minimumHeights: new Array(param.positions.length).fill(param.minHeight)
+	                maximumHeights: new Array(param.organizationPoints.length).fill(param.maxHeight),
+	                minimumHeights: new Array(param.organizationPoints.length).fill(param.minHeight)
 	            }
 	        });
-	
+
 	        function getColorRamp(val){
 	            if(val==null){
 	                val={0.0:"blue",0.1:"cyan",0.37:"lime",0.54:"yellow",1:"red"}
@@ -207,66 +289,74 @@
 	            return ramp;
 	        };
 	    };
-	
+
 	    /**添加多边形*/
 	    function addPolyon(param) {
 	        let newPosition = [];
-	        let col = new cesiumObj.Color.fromCssColorString("#3721E4").withAlpha(0.2);
-	        param.positions.forEach(item=>{
-	            let positionItem = cesiumObj.Cartesian3.fromDegrees(item.lon,item.lat,8);
+	        let col = new cesiumObj.Color.fromCssColorString(param.fillColor).withAlpha(param.fillOpacity);
+	        param.organizationPoints.forEach(item=>{
+	            let positionItem = cesiumObj.Cartesian3.fromDegrees(item.x,item.y,8);
 	            newPosition.push(positionItem);
 	        })
-	
-	        let entity = new Cesium.Entity({
-	            id: `${new Date().getTime()}面`,
+
+	        let entity = new cesiumObj.Entity({
+	            id: param.code,
 	            name: "线几何对象",
 	            show: true,
 	            polygon: {
 	                hierarchy: new cesiumObj.PolygonHierarchy(newPosition),
 	                material: col,
 	                perPositionHeight: true,
-	            }
+	            },
+				//定义业务数据
+				properties: (function () {
+					let data = new cesiumObj.PropertyBag();
+					data.addProperty("customProperty", param);
+					return data;
+				})()
 	        });
-	
-	
-	
+
+	        //获取多边形中心点位
+            let centerPosition = getPolyonCenter(entity);
+			let data = { position: centerPosition ,title:param.name,id: param.code }
+			addDynamicLabel(data);
 	        viewer.entities.add(entity);
-	
 	    }
-	
+
 	    /**添加实体图标*/
 	    function  loadEntityIcon(pointParams) {
 	       viewer.entities.add({
-	            name: pointParams.base.name,
-	            description: pointParams.base.description,
-	            code: pointParams.base.code,
-	            position: cesiumObj.Cartesian3.fromDegrees(pointParams.base.jd, pointParams.base.wd, pointParams.base.gd),//第三位是高度，在3d中，高度数值小可能被遮挡
+	            name: pointParams.name,
+	            code: pointParams.code,
+			   	customProperty: pointParams,
+	            position: pointParams.centerPositionXYZ,//第三位是高度，在3d中，高度数值小可能被遮挡
 	            height: 200,
-	            label: { //文字标签
-	                text: pointParams.label.text,
-	                font: '14pt monospace',
-	                style: cesiumObj.LabelStyle.FILL,
-	                outlineWidth: 2,
-	                verticalOrigin: cesiumObj.VerticalOrigin.BOTTOM, //垂直方向以底部来计算标签的位置
-	                pixelOffset: new cesiumObj.Cartesian2(0, -20)   //偏移量，第二位是上下，负数为往上偏移
-	            },
+	            // label: { //文字标签
+	            //     text: pointParams.label.text,
+	            //     font: '14pt monospace',
+	            //     style: cesiumObj.LabelStyle.FILL,
+	            //     outlineWidth: 2,
+	            //     verticalOrigin: cesiumObj.VerticalOrigin.BOTTOM, //垂直方向以底部来计算标签的位置
+	            //     pixelOffset: new cesiumObj.Cartesian2(0, -20)   //偏移量，第二位是上下，负数为往上偏移
+	            // },
 	            billboard: { //图标
 	                disableDepthTestDistance: Number.POSITIVE_INFINITY,//设为这样，不被遮挡
 	                image: pointParams.image.url,
 	                width: pointParams.image.width,
 	                height: pointParams.image.height
-	            },
-	            //定义业务数据
-	            properties: (function () {
-	                let data = new cesiumObj.PropertyBag();
-	                data.addProperty("type", pointParams.property.type);
-	                data.addProperty("name", pointParams.property.name);
-	                data.addProperty("action", pointParams.property.action);
-	                return data;
-	            })()
+	            }
 	        });
+
 	    };
-	
+
+	    /**计算多边形中心点位*/
+	    function getPolyonCenter(entity) {
+            let polyPositions = entity.polygon.hierarchy.getValue(cesiumObj.JulianDate.now()).positions;
+            let polyCenter = cesiumObj.BoundingSphere.fromPoints(polyPositions).center;//中心点
+            polyCenter = cesiumObj.Ellipsoid.WGS84.scaleToGeodeticSurface(polyCenter);
+            return polyCenter;
+        }
+
 	    /**移出添加的实体*/
 	    function removeAllEntities() {
 	        viewer.entities.values.forEach(item=>{
@@ -276,7 +366,7 @@
 	        })
 	        console.log(viewer.entities.values)
 	    }
-	
+
 	    /**鼠标事件监听*/
 	    function mouseEventsListen(){
 	        handler = new cesiumObj.ScreenSpaceEventHandler(viewer.scene.canvas);
@@ -290,8 +380,8 @@
 	        }
 	        function changeCursor(event) {
 	            let pick = viewer.scene.pick(event.endPosition);
-	            if (pick && pick.id && pick.id._properties) {
-	                viewer._container.style.cursor = "pointer";
+	            if (pick && pick.id) {
+					viewer._container.style.cursor = "crosshair";
 	            }else{
 	                viewer._container.style.cursor = "default";
 	            }
@@ -299,23 +389,30 @@
 	        //展示entity（实体）信息
 	        function showEntityInfo(event) {
 	            let pick = viewer.scene.pick(event.position);
-	            //选中某模型   pick选中的对象
+				if(pick.id._customProperty){
+					console.log("添加的点位详细信息：",pick.id._customProperty)
+					viewer.camera.flyTo({
+						destination :cesiumObj.Cartesian3.fromDegrees(pick.id._customProperty.centerPosition[0], pick.id._customProperty.centerPosition[1], 8000),
+						orientation: {
+							heading: cesiumObj.Math.toRadians(0), // 方向
+							pitch: cesiumObj.Math.toRadians(-90),// 倾斜角度
+							roll: 0
+						}
+					});
+				}
+	            //选中某多边形  pick选中的对象
 	            if (pick && pick.id  && pick.id._properties) {
-	                let properties = pick.id._properties;
-	                let name = properties._name._value;
-	                let action = properties._action._value;
-	                action(name);
+	               console.log("当前多边形详情信息：",pick.id._properties._customProperty._value)
 	            }
 	        }
 	    };
-	
+
 	    /**移出鼠标事件*/
 	    function removeMouseMove(){
 	        handler.removeInputAction(cesiumObj.ScreenSpaceEventType.MOUSE_MOVE)//移除事件
 	        alert('事件监听移出成功！');
 	    };
-	
-	
+
 	    if (typeof Cesium !== 'undefined') {
 	        window.startupCalled = true;
 	        onload(Cesium);
@@ -329,7 +426,7 @@
 	        padding: 0;
 	        overflow: hidden;
 	        background-color: #000000;
-	
+
 	        /* 禁止文字被鼠标选中 */
 	        moz-user-select: -moz-none;
 	        -moz-user-select: none;
@@ -339,5 +436,114 @@
 	        -ms-user-select:none;
 	        user-select:none;
 	    }
+
+		.testCss{
+			width: 108px;
+			display: flex;
+			align-items: center;
+			color: #fff;
+			font-size: 12px;
+			min-height: 28px;
+			border: 1px solid #008EC7;
+			border-radius: 2px;
+			background:rgba(0,74,172,0.4);
+		}
+
+		.leftIcon{
+			width: 30px;
+			height: 30px;
+			background: url("./img/test.gif") no-repeat;
+			background-size: 100%;
+			left: -20px;
+			position: absolute;
+			z-index: 1;
+		}
+
+
+		.point{
+			position: relative;
+		}
+		.point-icon{
+			position: absolute;
+			left: 16px;
+			top: 15px;
+			z-index: 2;
+		}
+		.point-r{
+			font-size: 16px;
+			color: #ffffff;
+			min-width: 108px;
+			max-width: 200px;
+			min-height: 34px;
+			line-height: 1.5;
+			text-align: left;
+			position: absolute;
+			border: 1px solid rgb(106, 139, 201);
+			background-color: rgba(13, 30, 200, 0.702);
+			box-shadow: 0px 0px 12px 3px rgba(0 ,39 ,139 ,0.5);
+			box-sizing: border-box;
+			z-index: 1;
+			left: 35px;
+			top: 9px;
+			padding: 5px 20px 5px 40px;
+		}
+		.point-l {
+			width: 50px;
+			height: 50px;
+			transform: rotate(45deg);
+			position: relative;
+			border: 1px solid #6284ca;
+			background-color: rgba(13, 30, 200, 0.9);
+			box-shadow: 0px 0px 12px 3px rgba(0, 39, 139, 0.5);
+			z-index: 2;
+		}
+		.point-l i{
+			position: absolute;
+			width: 21px;
+			height: 23px;
+			background: url("img/point-icon.png")no-repeat;
+		}
+		.point-arrow{
+			position: absolute;
+			left: 23px;
+			bottom: 0;
+			content: '';
+			width: 6px;
+			height: 4px;
+			background: url("img/arrow.png")no-repeat;
+			z-index: 2;
+		}
+		.point-l:after {
+			content: "";
+			top: -2px;
+			left: -2px;
+			position: absolute;
+			background-color: white;
+			width: 2px;
+			height: 2px;
+			-moz-border-radius: 50%;
+			-webkit-border-radius: 50%;
+			border-radius: 50%;
+			-webkit-animation: pointLight 4s infinite linear;
+			-webkit-animation-fill-mode: forwards;
+			box-shadow: 1px 1px 6px 2px #fff;
+		}
+		@-webkit-keyframes pointLight {
+			0%{
+			}
+			25%{
+				transform: translateX(50px)
+			}
+			50%{
+				transform: translateX(50px)translateY(50px)
+
+			}
+			75%{
+				transform: translateX(0px)translateY(50px)
+			}
+			100%{
+				transform: translateX(0)translateY(0)
+			}
+		}
 	</style>
 </html>
